@@ -1,9 +1,7 @@
-import React from "react"
+import React from 'react'
 
-import 'bootstrap/dist/css/bootstrap.min.css'
-import Title from "./components/Title"
-import Button from "react-bootstrap/Button"
-
+import Input from './components/Input'
+import Movie from './components/Movie'
 
 class App extends React.Component {
   constructor() {
@@ -11,45 +9,74 @@ class App extends React.Component {
 
     // state initial
     this.state = {
-      number: 6,
-      name: "Eloi"
+      name: "Benoit",
+      age: 20,
+      password: "hello",
+      grade: 100
     }
+
+    this.handleNameChange = this.handleNameChange.bind(this)
+    this.handleAgeChange = this.handleAgeChange.bind(this)
   }
 
-  handlePlusClick = () => {
-    if (this.state.number < 10) {
-      this.setState({ number: this.state.number + 1 })
-    }
-  }
-
-
-  handleMinusClick = () => {
-    if (this.state.number > 0) {
-      this.setState({ number: this.state.number - 1 })
-    } 
-  }
-
-  handleChange = (event) => {
+  handleNameChange(event) {
+    console.log(this)
     this.setState({ name: event.target.value })
   }
 
+  handleAgeChange(event) {
+    this.setState({ age: event.target.value })
+  }
+
+  handlePasswordChange = (event) => {
+    this.setState({ password: event.target.value })
+  }
+
+  handleGradeChange = (event) => {
+    this.setState({ grade: event.target.value })
+  }
+
   render() {
-    console.log(this.state.number)
-  
+    const { name, age, password, grade } = this.state
+
     return (
       <>
-        <Title color="red" title="hello" />
-        <h1>{this.state.number}</h1>
-        {/* <Button onClick={this.handleMinusClick}>-</Button> */}
-        {/* <Button onClick={this.handlePlusClick}>+</Button> */}
-        <Button variant="danger">-</Button>
-        <Button variant="success">+</Button>
-        <br />
-        <h1>{this.state.name}</h1>
-        <input
+        <p>Name: {name}</p>
+        <Input
+          placeholder="Entrez votre nom"
           type="text"
-          placeholder="tappez votre nom"
-          onChange={this.handleChange}
+          handleChange={this.handleNameChange}
+          value={this.state.name}
+        />
+
+        <p>Age: {age}</p>
+        <Input
+          placeholder="Entrez un nombre"
+          type="number"
+          handleChange={this.handleAgeChange}
+          value={this.state.age}
+        />
+
+        <p>Password: {password}</p>
+        <Input
+          placeholder="Entrez un mot de passe"
+          type="password"
+          handleChange={this.handlePasswordChange}
+          value={this.state.password}
+        />
+
+        <p>Note: {grade}</p>
+        <Input
+          placeholder="Entrez une note"
+          type="range"
+          handleChange={this.handleGradeChange}
+          value={this.state.grade}
+        />
+
+
+        <Movie
+          title="The lord of the rings - The fellowship of the ring"
+          year={2001}
         />
       </>
     )
