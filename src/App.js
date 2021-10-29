@@ -1,83 +1,56 @@
 import React from 'react'
 
-import Input from './components/Input'
-import Movie from './components/Movie'
+import Form from './components/Form'
 
 class App extends React.Component {
-  constructor() {
-    super()
-
-    // state initial
-    this.state = {
-      name: "Benoit",
-      age: 20,
-      password: "hello",
-      grade: 100
-    }
-
-    this.handleNameChange = this.handleNameChange.bind(this)
-    this.handleAgeChange = this.handleAgeChange.bind(this)
+  handleFocus(e) {
+    console.log("handleFocus")
   }
 
-  handleNameChange(event) {
-    console.log(this)
-    this.setState({ name: event.target.value })
+  handleChange(e) {
+    console.log(`handleChange ${e.target.value}`)
   }
 
-  handleAgeChange(event) {
-    this.setState({ age: event.target.value })
+  handleBlur(e) {
+    console.log("handleBlur")
   }
 
-  handlePasswordChange = (event) => {
-    this.setState({ password: event.target.value })
+  handleSubmit(e) {
+    // Obligatoire
+    e.preventDefault()
+    console.log("handleSubmit")
   }
 
-  handleGradeChange = (event) => {
-    this.setState({ grade: event.target.value })
+  handleKeyPress(e) {
+    console.log(`handleKeyPress ${e.key}`)
+  }
+
+  handleKeyDown(e) {
+    console.log(`handleKeyDown ${e.key}`)
+  }
+
+  handleKeyUp(e) {
+    console.log(`handleKeyUp ${e.key}`)
   }
 
   render() {
-    const { name, age, password, grade } = this.state
-
     return (
       <>
-        <p>Name: {name}</p>
-        <Input
-          placeholder="Entrez votre nom"
-          type="text"
-          handleChange={this.handleNameChange}
-          value={this.state.name}
-        />
-
-        <p>Age: {age}</p>
-        <Input
-          placeholder="Entrez un nombre"
-          type="number"
-          handleChange={this.handleAgeChange}
-          value={this.state.age}
-        />
-
-        <p>Password: {password}</p>
-        <Input
-          placeholder="Entrez un mot de passe"
-          type="password"
-          handleChange={this.handlePasswordChange}
-          value={this.state.password}
-        />
-
-        <p>Note: {grade}</p>
-        <Input
-          placeholder="Entrez une note"
-          type="range"
-          handleChange={this.handleGradeChange}
-          value={this.state.grade}
-        />
-
-
-        <Movie
-          title="The lord of the rings - The fellowship of the ring"
-          year={2001}
-        />
+        <h1>App</h1>
+        <form onSubmit={this.handleSubmit}>
+          <input
+            type="text"
+            placeholder="My awesome input"
+            onFocus={this.handleFocus}
+            onChange={this.handleChange}
+            onBlur={this.handleBlur}
+            onKeyPress={this.handleKeyPress}
+            onKeyDown={this.handleKeyDown}
+            onKeyUp={this.handleKeyUp}
+          />
+          <button type="submit">Submit</button>
+        </form>
+        <Form />
       </>
     )
   }
