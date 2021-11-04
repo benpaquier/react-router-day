@@ -1,13 +1,15 @@
 import React from 'react'
 
 class Button extends React.Component {
+  componentDidMount() {
+    console.log("componentDidMont Button.js")
+  }
+
   render() {
-    const { type, label } = this.props
+    console.log("render Button.js")
 
     return (
-      <button type={type}>
-        {label}
-      </button>
+      <button>Hello</button>
     )
   }
 }

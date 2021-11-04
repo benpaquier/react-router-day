@@ -1,56 +1,33 @@
 import React from 'react'
 
-import Form from './components/Form'
+import Button from "./components/Button"
 
 class App extends React.Component {
-  handleFocus(e) {
-    console.log("handleFocus")
+  constructor() {
+    super()
+
+    //state initial
+    this.state = {
+      pokemons: []
+    }
   }
 
-  handleChange(e) {
-    console.log(`handleChange ${e.target.value}`)
-  }
-
-  handleBlur(e) {
-    console.log("handleBlur")
-  }
-
-  handleSubmit(e) {
-    // Obligatoire
-    e.preventDefault()
-    console.log("handleSubmit")
-  }
-
-  handleKeyPress(e) {
-    console.log(`handleKeyPress ${e.key}`)
-  }
-
-  handleKeyDown(e) {
-    console.log(`handleKeyDown ${e.key}`)
-  }
-
-  handleKeyUp(e) {
-    console.log(`handleKeyUp ${e.key}`)
+  componentDidMount() {
+    fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
+      .then(response => response.json())
+      .then(result => {
+        this.setState({ pokemons: result.results })
+      })
   }
 
   render() {
     return (
       <>
         <h1>App</h1>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            placeholder="My awesome input"
-            onFocus={this.handleFocus}
-            onChange={this.handleChange}
-            onBlur={this.handleBlur}
-            onKeyPress={this.handleKeyPress}
-            onKeyDown={this.handleKeyDown}
-            onKeyUp={this.handleKeyUp}
-          />
-          <button type="submit">Submit</button>
-        </form>
-        <Form />
+        <Button />
+        {this.state.pokemons.map(pokemon => (
+          <p key={pokemon.name}>{pokemon.name}</p>
+        ))}
       </>
     )
   }
