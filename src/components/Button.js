@@ -1,15 +1,13 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-class Button extends React.Component {
-  componentDidMount() {
-    console.log("componentDidMont Button.js")
-  }
-
+class Button extends Component {
   render() {
-    console.log("render Button.js")
+    const { label } = this.props
 
     return (
-      <button>Hello</button>
+      <button className="btn btn-success">
+        {label}
+      </button>
     )
   }
 }

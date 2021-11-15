@@ -1,34 +1,36 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { BrowserRouter, Switch, Route } from "react-router-dom"
 
-import Button from "./components/Button"
+import 'bootstrap/dist/css/bootstrap.min.css'
 
-class App extends React.Component {
-  constructor() {
-    super()
+import Home from './pages/Home'
+import About from './pages/About'
+import Profile from './pages/Profile'
+import Characters from './pages/Characters'
+import Character from './pages/Character'
+import NotFound from './pages/NotFound'
+import Nav from './components/Nav'
 
-    //state initial
-    this.state = {
-      pokemons: []
-    }
-  }
-
-  componentDidMount() {
-    fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
-      .then(response => response.json())
-      .then(result => {
-        this.setState({ pokemons: result.results })
-      })
-  }
-
+class App extends Component {
   render() {
     return (
-      <>
-        <h1>App</h1>
-        <Button />
-        {this.state.pokemons.map(pokemon => (
-          <p key={pokemon.name}>{pokemon.name}</p>
-        ))}
-      </>
+      // Component qui permet d'utiliser le router de façon globale
+      <BrowserRouter>
+
+        <Nav />
+
+        {/* Component qui représente la liste des routes */}
+        <Switch>
+
+          {/* Une route au singulier représente un url spécifique */}
+          <Route exact path="/" component={Home} />
+          <Route path="/about" component={About} />
+          <Route path="/profile" component={Profile} />
+          <Route exact path="/characters" component={Characters} />
+          <Route path="/characters/:id" component={Character} />
+          <Route path="*" component={NotFound} />
+        </Switch>
+      </BrowserRouter>
     )
   }
 }
